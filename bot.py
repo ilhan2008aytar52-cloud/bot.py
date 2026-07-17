@@ -139,7 +139,7 @@ Stimmung:
             print(r.text)
             return "❌ KI Fehler"
 
-      except Exception as e:
+    except Exception as e:
         import traceback
         traceback.print_exc()
         return f"❌ Fehler: {e}"
