@@ -179,23 +179,29 @@ async def on_message(message):
 
     provoke = is_provocation(content)
 
+   try:
     async with message.channel.typing():
-
         reply = ask_ai(content, user, provoke)
+except discord.HTTPException as e:
+    print(f"Typing-Fehler: {e}")
+    reply = ask_ai(content, user, provoke)
 
-        memory.append({
-            "role": "user",
-            "content": f"{user}: {content}"
-        })
+memory.append({
+    "role": "user",
+    "content": f"{user}: {content}"
+})
 
-        memory.append({
-            "role": "assistant",
-            "content": reply
-        })
+memory.append({
+    "role": "assistant",
+    "content": reply
+})
 
-        if len(memory) > 20:
-            memory[:] = memory[-20:]
+if len(memory) > 20:
+    memory[:] = memory[-20:]
 
-        await message.channel.send(reply[:1900])
+try:
+    await message.channel.send(reply[:1900])
+except discord.HTTPException as e:
+    print(f"Sende-Fehler: {e}")
 
 client.run(DISCORD_TOKEN)
