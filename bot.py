@@ -173,17 +173,17 @@ async def on_message(message):
         return
 
     # Begrüßung
-if content.lower() in ["hi", "hallo", "hey", "selam"]:
-    await message.channel.send(f"👋 Selam {user}, ich bin Abu Olaf lan 😏")
-    return
+    if content.lower() in ["hi", "hallo", "hey", "selam"]:
+        await message.channel.send(f"👋 Selam {user}, ich bin Abu Olaf lan 😏")
+        return
 
-provoke = is_provocation(content)
+    provoke = is_provocation(content)
 
-try:
-    reply = ask_ai(content, user, provoke)
-except Exception as e:
-    print(f"KI-Fehler: {e}")
-    reply = "❌ Fehler bei der KI."
+    try:
+        reply = ask_ai(content, user, provoke)
+    except Exception as e:
+        print(f"KI-Fehler: {e}")
+        reply = "❌ Fehler bei der KI."
 
     memory.append({
         "role": "user",
@@ -202,8 +202,5 @@ except Exception as e:
         await message.channel.send(reply[:1900])
     except discord.HTTPException as e:
         print(f"Sende-Fehler: {e}")
-
-
-
 
 client.run(DISCORD_TOKEN)
