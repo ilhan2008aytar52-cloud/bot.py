@@ -139,9 +139,10 @@ Stimmung:
             print(r.text)
             return "❌ KI Fehler"
 
-    except Exception as e:
-        print("ERROR:", e)
-        return "❌ Verbindung Fehler"
+  except Exception as e:
+    import traceback
+    traceback.print_exc()
+    reply = f"❌ Fehler: {e}"
 
 # =========================
 # EVENTS
