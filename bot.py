@@ -198,6 +198,4 @@ async def on_message(message):
 
         await message.channel.send(reply[:1900])
 
-client.run(DISCORD_TOKEN) 
-
-das ist mein scrip bearbeite das rein was erstezt sein muss
+client.run(DISCORD_TOKEN)
