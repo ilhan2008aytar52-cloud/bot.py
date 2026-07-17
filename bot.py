@@ -179,29 +179,25 @@ async def on_message(message):
 
     provoke = is_provocation(content)
 
-   try:
     async with message.channel.typing():
+
         reply = ask_ai(content, user, provoke)
-except discord.HTTPException as e:
-    print(f"Typing-Fehler: {e}")
-    reply = ask_ai(content, user, provoke)
 
-memory.append({
-    "role": "user",
-    "content": f"{user}: {content}"
-})
+        memory.append({
+            "role": "user",
+            "content": f"{user}: {content}"
+        })
 
-memory.append({
-    "role": "assistant",
-    "content": reply
-})
+        memory.append({
+            "role": "assistant",
+            "content": reply
+        })
 
-if len(memory) > 20:
-    memory[:] = memory[-20:]
+        if len(memory) > 20:
+            memory[:] = memory[-20:]
 
-try:
-    await message.channel.send(reply[:1900])
-except discord.HTTPException as e:
-    print(f"Sende-Fehler: {e}")
+        await message.channel.send(reply[:1900])
 
-client.run(DISCORD_TOKEN)
+client.run(DISCORD_TOKEN) 
+
+das ist mein scrip bearbeite das rein was erstezt sein muss
